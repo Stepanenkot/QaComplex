@@ -313,51 +313,6 @@ class TestLoginPage(BaseTest):
         assert error_message.text == "Password must be at least 12 characters."
         self.log.info("Error message match to expected")
 
-    def test_sign_in(self, driver: object):
-        """
-        - Open start page
-        - Clear login field
-        - Enter valid login
-        - Clear password field
-        - Enter valid password
-        - Click on "Sign in button"
-        - Validate successful log in
-        - Click "Sign out"
-        """
-
-        # Open start page
-        driver.get("https://qa-complex-app-for-testing.herokuapp.com")
-        self.log.info("Open page")
-
-        # Clear login field and enter valid login
-        username = driver.find_element_by_xpath(".//input[@placeholder='Username']")
-        username.clear()
-        username.send_keys("Anna12345")
-        self.log.info("Valid login is entered")
-        sleep(1)
-
-        # Clear password field and enter valid pass
-        password = driver.find_element_by_xpath(".//input[@placeholder='Password']")
-        password.clear()
-        password.send_keys("123456789123")
-        self.log.info("Valid pass entered")
-        sleep(1)
-
-        # Click on Sign in button
-        sign_in_button = driver.find_element_by_xpath(".//button[contains(text(), 'Sign In')]")
-        sign_in_button.click()
-        self.log.info("Clicked on 'Sign In'")
-
-        sign_up_test = driver.find_element_by_xpath(".//h2[contains(text(), 'Hello')]")
-        assert sign_up_test.text == "Hello anna12345, your feed is empty."
-        self.log.info("Sign up is successful")
-
-        # Click on Sign Out
-        sign_out_test = driver.find_element_by_xpath(".//button[contains(text(), 'Sign Out')]")
-        sign_out_test.click()
-        self.log.info("Sign Out")
-
-
     def test_register(self, driver, logout):
         """
         - Open start page
@@ -414,4 +369,5 @@ class TestLoginPage(BaseTest):
         assert hello_message.text == f"Hello {username_value.lower()}, your feed is empty."
         assert driver.find_element_by_xpath(".//strong").text == username_value.lower()
         self.log.info("Registration was successful and verified.")
+
 
